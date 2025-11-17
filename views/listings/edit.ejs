@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Listing</title>
+    <link rel="stylesheet" href="/css/listings/new.css" />
+  </head>
+  <body>
+    <!-- DEBUG: remove after checking -->
+
+    <header class="header">
+      <!-- Left: Logo + Become a host -->
+      <div class="header__left">
+        <a class="logo" href="/listings">
+          <img src="/images/logo.png" alt="homeAway logo" />
+          <span class="logo-text">homeAway</span>
+        </a>
+
+        <a href="/listings/new" class="btn-host">Become a host</a>
+      </div>
+
+      <!-- Right: Auth links (use your own URLs later) -->
+      <nav class="header__right">
+        <% if (user) { %>
+        <a href="/user/logout" class="nav-link">Log out</a>
+        <% } else { %>
+        <a href="/user/login" class="nav-link">Log in</a>
+        <% } %>
+      </nav>
+    </header>
+
+    <!-- Edit Form Container -->
+    <div class="form-container">
+      <h1>Edit your listing</h1>
+      <h2>Update the details below.</h2>
+
+      <form
+        id="edit-form"
+        action="/listings/<%= item._id %>/edit?_method=PATCH"
+        method="POST"
+        novalidate
+        enctype="multipart/form-data"
+      >
+        <!-- Title -->
+        <div class="field">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="Title"
+            value="<%= item.title %>"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Title is required.</div>
+        </div>
+
+        <!-- Description -->
+        <div class="field">
+          <label for="description">Description</label>
+          <textarea
+            name="description"
+            id="description"
+            placeholder="Description"
+            required
+          >
+<%= item.description %></textarea
+          >
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Description is required.</div>
+        </div>
+
+        <!-- Image Fields Row -->
+        <div class="form-row">
+          <div class="field">
+            <span>Uploaded Images: </span>
+            <img class="img" src="<%= imageUrl %>" alt="" />
+          </div>
+          <div class="field">
+            <label for="url">Upload New Image</label>
+            <input type="file" name="file" id="file" />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Image is required.</div>
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div class="field">
+          <label for="price">Price (₹)</label>
+          <input
+            type="number"
+            name="price"
+            id="price"
+            placeholder="Price"
+            min="0"
+            step="1"
+            value="<%= item.price %>"
+            required
+          />
+          <div class="valid-feedback">Looks good!</div>
+          <div class="invalid-feedback">Please enter a valid price.</div>
+        </div>
+
+        <!-- Location + Country Row -->
+        <div class="form-row">
+          <div class="field">
+            <label for="location">Location</label>
+            <input
+              type="text"
+              name="location"
+              id="location"
+              value="<%= item.location %>"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Location is required.</div>
+          </div>
+
+          <div class="field">
+            <label for="country">Country</label>
+            <input
+              type="text"
+              name="country"
+              id="country"
+              value="<%= item.country %>"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+            <div class="invalid-feedback">Country is required.</div>
+          </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="actions">
+          <button type="submit" id="collectDataBtn">Update Listing</button>
+          <button type="reset" class="secondary">Reset</button>
+        </div>
+      </form>
+    </div>
+    <!-- Minimal validation script -->
+    <script>
+      (function () {
+        "use strict";
+        const form = document.getElementById("edit-form");
+        form.addEventListener("submit", function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add("was-validated");
+        });
+      })();
+    </script>
+  </body>
+</html>

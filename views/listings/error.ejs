@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/listings/error.css" />
+  </head>
+  <body>
+    <header class="header">
+      <!-- Left: Logo + Become a host -->
+      <div class="header__left">
+        <a class="logo" href="/listings">
+          <img src="/images/logo.png" alt="homeAway logo" />
+          <span class="logo-text">homeAway</span>
+        </a>
+
+        <a href="/listings/new" class="btn-host">Become a host</a>
+      </div>
+
+      <!-- Right: Auth links (use your own URLs later) -->
+      <nav class="header__right">
+        <% if (user) { %>
+        <a href="/user/logout" class="nav-link">Log out</a>
+        <% } else { %>
+        <a href="/user/login" class="nav-link">Log in</a>
+        <% } %>
+      </nav>
+    </header>
+
+    <div class="error"><p><%= message %></p></div>
+  </body>
+</html>
